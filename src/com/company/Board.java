@@ -76,7 +76,7 @@ public class Board implements Cloneable {
 
         for (Queen q :
                 this.queens) {
-            retVal.addQueen(this.size - (Math.abs(q.getX() - 1)) , q.getY());
+            retVal.addQueen(this.size - q.getX() + 1 , q.getY());
         }
 
         return retVal;
@@ -98,7 +98,7 @@ public class Board implements Cloneable {
 
         for (Queen q :
                 this.queens) {
-            retVal.addQueen((q.getY()),size  + 1 - q.getX());
+            retVal.addQueen((q.getY()),size - q.getX() + 1);
         }
 
         return retVal;
@@ -143,11 +143,15 @@ public class Board implements Cloneable {
             return false;
         }
         final Board other = (Board) obj;
+
+        if(this.hashCode() == other.hashCode()) return true;
+
         if (this.getQueens().size() != other.getQueens().size()) return false;
 
         for (int i = 0; i < other.getQueens().size(); i++) {
             if (!(this.getQueens().get(i).equals(other.getQueens().get(i)))) return false;
         }
+
         return true;
     }
 
